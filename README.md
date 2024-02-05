@@ -62,11 +62,13 @@ These instructions are mostly followable from Step
 
 
 
-**Controller Mappings**
-Left Joystick: Translation
-Right Joystick: Heading control
-Right Bumper: Dampen movement
-Y Button: Zero robot heading
+**Controller Mappings** </br>
+
+Left Joystick: Translation </br>
+Right Joystick: Heading control </br>
+Right Bumper: Dampen movement </br>
+Y Button: Zero robot heading </br>
+
 ----
 
  
