@@ -1,7 +1,7 @@
 package frc.robot.subsystems.swerve;
 
 import frc.lib.math.GeometryUtils;
-import frc.robot.RevSwerveConstants;
+import frc.robot.SwerveConstants;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
@@ -30,17 +30,17 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         
-        gyro = new Pigeon2(RevSwerveConstants.REV.pigeonID);
+        gyro = new Pigeon2(SwerveConstants.REV.pigeonID);
         gyro.configFactoryDefault();
         
      
 
         mSwerveMods = new SwerveModule[] {
            
-            new SwerveMod(0, RevSwerveConstants.Swerve.Mod0.constants),
-            new SwerveMod(1, RevSwerveConstants.Swerve.Mod1.constants),
-            new SwerveMod(2, RevSwerveConstants.Swerve.Mod2.constants),
-            new SwerveMod(3, RevSwerveConstants.Swerve.Mod3.constants)
+            new SwerveMod(0, SwerveConstants.Swerve.Mod0.constants),
+            new SwerveMod(1, SwerveConstants.Swerve.Mod1.constants),
+            new SwerveMod(2, SwerveConstants.Swerve.Mod2.constants),
+            new SwerveMod(3, SwerveConstants.Swerve.Mod3.constants)
         };
 
         swerveOdometry = new SwerveDriveOdometry(SwerveConfig.swerveKinematics, getYaw(), getModulePositions());

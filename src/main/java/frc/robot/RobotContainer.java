@@ -19,20 +19,20 @@ import frc.robot.subsystems.swerve.Swerve;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
     /* Controllers */
     private final Joystick driver = new Joystick(0);
 
-    /* Drive Controls */
-    private final int translationAxis = 1;
-    private final int strafeAxis = 0;
-    private final int rotationAxis = 4;
-    //private final int speedDial = 5;
+   /* Driver Controls */
+	private final int translationAxis = XboxController.Axis.kLeftY.value;
+	private final int strafeAxis = XboxController.Axis.kLeftX.value;
+	private final int rotationAxis = XboxController.Axis.kRightX.value;
 
-    
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, 8);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-    private final JoystickButton dampen = new JoystickButton(driver, 6);
+    private final JoystickButton dampen = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
 
     private final POVButton up = new POVButton(driver, 90);
     private final POVButton down = new POVButton(driver, 270);

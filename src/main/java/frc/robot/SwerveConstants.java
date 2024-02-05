@@ -12,7 +12,7 @@ import frc.lib.util.swerveUtil.RevSwerveModuleConstants;
  * other configuration goes into subsystem specific configuration files,
  * to make sure this one isn't cluttered.
  */
-public final class RevSwerveConstants 
+public final class SwerveConstants 
 {
     public static final double stickDeadband = 0.1;
     public static final double limelightOffset = 3;
