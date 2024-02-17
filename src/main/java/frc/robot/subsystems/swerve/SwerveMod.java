@@ -11,7 +11,7 @@ import frc.lib.util.swerveUtil.RevSwerveModuleConstants;
 import com.ctre.phoenix.sensors.CANCoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.FaultID;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -23,20 +23,14 @@ public class SwerveMod implements SwerveModule
 {
     public int moduleNumber;
     private Rotation2d angleOffset;
-   // private Rotation2d lastAngle;
 
     private CANSparkMax mAngleMotor;
     private CANSparkMax mDriveMotor;
-
-
-
 
     private CANCoder angleEncoder;
     private RelativeEncoder relAngleEncoder;
     private RelativeEncoder relDriveEncoder;
 
-
-    //SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.Swerve.driveKS, Constants.Swerve.driveKV, Constants.Swerve.driveKA);
 
     public SwerveMod(int moduleNumber, RevSwerveModuleConstants moduleConstants)
     {
@@ -53,7 +47,6 @@ public class SwerveMod implements SwerveModule
         configDriveMotor();
 
          /* Angle Encoder Config */
-    
         angleEncoder = new CANCoder(moduleConstants.cancoderID);
         configEncoders();
 
@@ -92,7 +85,7 @@ public class SwerveMod implements SwerveModule
     private void configAngleMotor()
     {
         mAngleMotor.restoreFactoryDefaults();
-        SparkMaxPIDController controller = mAngleMotor.getPIDController();
+        SparkPIDController controller = mAngleMotor.getPIDController();
         controller.setP(SwerveConfig.angleKP, 0);
         controller.setI(SwerveConfig.angleKI,0);
         controller.setD(SwerveConfig.angleKD,0);
@@ -110,7 +103,7 @@ public class SwerveMod implements SwerveModule
     private void configDriveMotor()
     {        
         mDriveMotor.restoreFactoryDefaults();
-        SparkMaxPIDController controller = mDriveMotor.getPIDController();
+        SparkPIDController controller = mDriveMotor.getPIDController();
         controller.setP(SwerveConfig.driveKP,0);
         controller.setI(SwerveConfig.driveKI,0);
         controller.setD(SwerveConfig.driveKD,0);
@@ -159,7 +152,7 @@ public class SwerveMod implements SwerveModule
  
         double velocity = desiredState.speedMetersPerSecond;
         
-        SparkMaxPIDController controller = mDriveMotor.getPIDController();
+        SparkPIDController controller = mDriveMotor.getPIDController();
         controller.setReference(velocity, ControlType.kVelocity, 0);
         
     }
@@ -175,7 +168,7 @@ public class SwerveMod implements SwerveModule
         Rotation2d angle = desiredState.angle; 
         //Prevent rotating module if speed is less then 1%. Prevents Jittering.
         
-        SparkMaxPIDController controller = mAngleMotor.getPIDController();
+        SparkPIDController controller = mAngleMotor.getPIDController();
         
         double degReference = angle.getDegrees();
      
