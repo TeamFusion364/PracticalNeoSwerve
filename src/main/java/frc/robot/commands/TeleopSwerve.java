@@ -3,7 +3,6 @@ package frc.robot.commands;
 import frc.robot.Constants;
 import frc.robot.States;
 import frc.robot.subsystems.swerve.Swerve;
-import frc.robot.subsystems.swerve.SwerveConfig;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
@@ -54,29 +53,29 @@ public class TeleopSwerve extends Command {
             case d0:
 
                 //heading lock
-               rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(0));
+               rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(0));
                 break;
             case d90:
 
                 //heading lock
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(90));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(90));
                 break;
             case d180:
 
                 //heading lock
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(180));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(180));
                 break;
             case d270:
 
                 //heading lock
-                rotationVal = rotationController.calculate(s_Swerve.getYaw().getRadians(), Units.degreesToRadians(270));
+                rotationVal = rotationController.calculate(s_Swerve.getHeading().getRadians(), Units.degreesToRadians(270));
                 break;
 
 
             case standard:
             
                 //normal
-                rotationVal = rotationVal * SwerveConfig.maxAngularVelocity;
+                rotationVal = rotationVal * Constants.Swerve.maxAngularVelocity;
                 break;
         }
 
@@ -84,7 +83,7 @@ public class TeleopSwerve extends Command {
 
         /* Drive */
         s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(SwerveConfig.maxSpeed), 
+            new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed), 
             rotationVal,
             !robotCentricSup.getAsBoolean(), 
             true

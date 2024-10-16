@@ -1,5 +1,7 @@
 package frc.lib.util.swerveUtil;
 
+import com.ctre.phoenix6.signals.SensorDirectionValue;
+
 import edu.wpi.first.math.util.Units;
 
 /* Contains values and required settings for common COTS swerve modules. */
@@ -14,9 +16,9 @@ public class COTSNeoSwerveConstants {
     public final double angleKF;
     public final boolean driveMotorInvert;
     public final boolean angleMotorInvert;
-    public final boolean canCoderInvert;
+    public SensorDirectionValue cancoderInvert;
 
-    public COTSNeoSwerveConstants(double wheelDiameter, double angleGearRatio, double driveGearRatio, double angleKP, double angleKI, double angleKD, double angleKF, boolean driveMotorInvert, boolean angleMotorInvert, boolean canCoderInvert){
+    public COTSNeoSwerveConstants(double wheelDiameter, double angleGearRatio, double driveGearRatio, double angleKP, double angleKI, double angleKD, double angleKF, boolean driveMotorInvert, boolean angleMotorInvert, SensorDirectionValue canCoderInvert){
         this.wheelDiameter = wheelDiameter;
         this.wheelCircumference = wheelDiameter * Math.PI;
         this.angleGearRatio = angleGearRatio;
@@ -27,7 +29,7 @@ public class COTSNeoSwerveConstants {
         this.angleKF = angleKF;
         this.driveMotorInvert = driveMotorInvert;
         this.angleMotorInvert = angleMotorInvert;
-        this.canCoderInvert = canCoderInvert;
+        this.cancoderInvert = canCoderInvert;
     }
     
     /** Swerve Drive Specialties - MK3 Module*/
@@ -44,8 +46,8 @@ public class COTSNeoSwerveConstants {
  
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = false;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /** Swerve Drive Specialties - MK4 Module*/
@@ -62,8 +64,8 @@ public class COTSNeoSwerveConstants {
  
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = false;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /** Swerve Drive Specialties - MK4i Module*/
@@ -80,8 +82,8 @@ public class COTSNeoSwerveConstants {
 
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = true;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /** West Coast Products - Flipped Gear Module*/
@@ -98,8 +100,8 @@ public class COTSNeoSwerveConstants {
 
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = true;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /** West Coast Products - Flipped Belt Module*/
@@ -116,8 +118,8 @@ public class COTSNeoSwerveConstants {
 
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = false;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /** West Coast Products - Non-Flipped Belt Module*/
@@ -134,8 +136,8 @@ public class COTSNeoSwerveConstants {
 
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = true;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /** REV Robotics - MAXSwerve Module */
@@ -152,8 +154,8 @@ public class COTSNeoSwerveConstants {
 
         boolean driveMotorInvert = false;
         boolean angleMotorInvert = true;
-        boolean canCoderInvert = false;
-        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, canCoderInvert);
+        SensorDirectionValue cancoderInvert = SensorDirectionValue.CounterClockwise_Positive;
+        return new COTSNeoSwerveConstants(wheelDiameter, angleGearRatio, driveGearRatio, angleKP, angleKI, angleKD, angleKF, driveMotorInvert, angleMotorInvert, cancoderInvert);
     }
 
     /* Drive Gear Ratios for all supported modules */
