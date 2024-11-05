@@ -1,11 +1,15 @@
 package frc.robot;
 
 public class States {
-//Drive states
+
     public static enum DriveStates {
-        standard, d0, d90, d180, d270
+        standard, leftHold, rightHold, forwardHold, backwardHold, DynamicLock
     }
+
+    public static enum AlignedStates {
+        aligned, unAligned, normal
+    }
+
     public static DriveStates driveState = DriveStates.standard;
-
-
+    public static AlignedStates alignedState = AlignedStates.normal;
 }

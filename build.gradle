@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2024.3.2"
+    id "edu.wpi.first.GradleRIO" version "2025.1.1-beta-1"
 }
 
 java {
@@ -39,16 +39,6 @@ deploy {
     }
 }
 
-def deployArtifact = deploy.targets.roborio.artifacts.frcJava
-
-// Set to true to use debug for JNI.
-wpi.java.debugJni = false
-
-// Set this to true to enable desktop support.
-def includeDesktopSupport = false
-
-// Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
-// Also defines JUnit 5.
 repositories {
     maven {
         url = uri("https://maven.pkg.github.com/Mechanical-Advantage/AdvantageKit")
@@ -70,7 +60,18 @@ task(checkAkitInstall, dependsOn: "classes", type: JavaExec) {
 }
 compileJava.finalizedBy checkAkitInstall
 
+def deployArtifact = deploy.targets.roborio.artifacts.frcJava
+
+// Set to true to use debug for JNI.
+wpi.java.debugJni = false
+
+// Set this to true to enable desktop support.
+def includeDesktopSupport = true
+
+// Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
+// Also defines JUnit 5.
 dependencies {
+    annotationProcessor wpi.java.deps.wpilibAnnotations()
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
 

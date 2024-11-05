@@ -1,7 +1,5 @@
 package frc.lib.math;
 
-import com.revrobotics.RelativeEncoder;
-
 public class Conversions {
 
     /**
