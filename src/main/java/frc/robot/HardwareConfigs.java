@@ -4,13 +4,13 @@ import com.ctre.phoenix6.configs.CANcoderConfiguration;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
 
-public final class CTREConfigs {
+public final class HardwareConfigs {
   
     public CANcoderConfiguration swerveCANcoderConfig;
     public SparkMaxConfig swerveAngleSparkConfig =  new SparkMaxConfig();
     public SparkMaxConfig swerveDriveSparkConfig =  new SparkMaxConfig();
 
-    public CTREConfigs(){
+    public HardwareConfigs(){
        /** Swerve CANCoder Configuration */
        swerveCANcoderConfig.MagnetSensor.SensorDirection = Constants.Swerve.cancoderInvert;
 

@@ -1,6 +1,8 @@
 package frc.robot;
 
 import com.ctre.phoenix6.signals.SensorDirectionValue;
+import com.pathplanner.lib.config.ModuleConfig;
+import com.pathplanner.lib.config.PIDConstants;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.Matrix;
@@ -10,6 +12,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 import frc.lib.util.swerveUtil.COTSNeoSwerveConstants;
@@ -155,10 +158,23 @@ public final class Constants {
         public static final double kMaxAccelerationMetersPerSecondSquared = 3;
         public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
         public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
-    
-        public static final double kPXController = 1;
-        public static final double kPYController = 1;
-        public static final double kPThetaController = 1;
+
+        //TODO: Must be tuned to specific robot
+        public static final PIDConstants translationPID = new PIDConstants(0, 0, 0);
+        public static final PIDConstants rotationPID = new PIDConstants(0, 0, 0);
+
+        //TODO: Must be tuned to specific robot
+        public static final double ROBOT_MASS_KG = 74.088;
+        public static final double ROBOT_MOI = 6.883;
+        public static final double WHEEL_COF = 1.2;
+
+        public static final ModuleConfig moduleConfig = new ModuleConfig(
+                (Constants.Swerve.chosenModule.wheelDiameter / 2),
+                (Constants.Swerve.maxSpeed),
+                Constants.AutoConstants.WHEEL_COF,
+                DCMotor.getNEO(1).withReduction(Constants.Swerve.chosenModule.driveGearRatio),
+                Constants.Swerve.driveCurrentThreshold,
+              1);
     
         /* Constraint for the motion profilied robot angle controller */
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =

@@ -22,7 +22,7 @@ import com.revrobotics.spark.SparkMax;
  * a Swerve Modules using REV Robotics motor controllers and CTRE CANcoder absolute encoders.
  */
 public class SwerveMod{
-    private CTREConfigs ctreConfigs;
+    private HardwareConfigs hardwareConfigs;
 
     public int moduleNumber;
     private Rotation2d angleOffset;
@@ -39,7 +39,7 @@ public class SwerveMod{
 
     public SwerveMod(int moduleNumber, SwerveModuleConstants moduleConstants)
     {
-        this.ctreConfigs = Robot.ctreConfigs;
+        this.hardwareConfigs = Robot.hardwareConfigs;
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
         
@@ -48,19 +48,19 @@ public class SwerveMod{
 
         /* Angle Motor Config */
         mAngleMotor = new SparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
-        mAngleMotor.configure(ctreConfigs.swerveAngleSparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+        mAngleMotor.configure(hardwareConfigs.swerveAngleSparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
         configEncoders();
 
         /* Drive Motor Config */
         mDriveMotor = new SparkMax(moduleConstants.driveMotorID,  MotorType.kBrushless);
-        mDriveMotor.configure(ctreConfigs.swerveDriveSparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
+        mDriveMotor.configure(hardwareConfigs.swerveDriveSparkConfig, ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters);
     }
 
 
     private void configEncoders()
     {     
         // absolute encoder   
-       angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig); 
+       angleEncoder.getConfigurator().apply(hardwareConfigs.swerveCANcoderConfig); 
 
         relDriveEncoder = mDriveMotor.getEncoder();
         relDriveEncoder.setPosition(0);

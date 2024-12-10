@@ -40,14 +40,13 @@ public class Swerve extends SubsystemBase {
     public Swerve(PoseEstimator s_PoseEstimator) {
         this.s_PoseEstimator = s_PoseEstimator;
 
-        try{
-          config = RobotConfig.fromGUISettings();
-        } catch (Exception e) {
-          // Handle exception as needed
-          e.printStackTrace();
-        }
+        config = new RobotConfig(
+          Constants.AutoConstants.ROBOT_MASS_KG,
+          Constants.AutoConstants.ROBOT_MOI,
+          Constants.AutoConstants.moduleConfig,
+          Constants.Swerve.trackWidth);
 
-        gyro = new Pigeon2(Constants.Swerve.pigeonID, "canivore");
+        gyro = new Pigeon2(Constants.Swerve.pigeonID, "rio");
         gyro.getConfigurator().apply(new Pigeon2Configuration());
         gyro.setYaw(0);
 
