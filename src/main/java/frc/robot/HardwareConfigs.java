@@ -6,7 +6,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 public final class HardwareConfigs {
   
-    public CANcoderConfiguration swerveCANcoderConfig;
+    public CANcoderConfiguration swerveCANcoderConfig = new CANcoderConfiguration();
     public SparkMaxConfig swerveAngleSparkConfig =  new SparkMaxConfig();
     public SparkMaxConfig swerveDriveSparkConfig =  new SparkMaxConfig();
 

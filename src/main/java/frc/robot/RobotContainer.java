@@ -46,7 +46,7 @@ public class RobotContainer {
     /* Subsystems */
     private final PoseEstimator s_PoseEstimator = new PoseEstimator();
     private final Swerve s_Swerve = new Swerve(s_PoseEstimator);
-    private final Vision s_Vision = new Vision(s_PoseEstimator);
+    //private final Vision s_Vision = new Vision(s_PoseEstimator);
 
     /* AutoChooser */
     private final SendableChooser<Command> autoChooser;

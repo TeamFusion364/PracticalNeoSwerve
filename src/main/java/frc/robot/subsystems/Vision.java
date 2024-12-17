@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
 import frc.lib.util.Limelight;
 
 import org.littletonrobotics.junction.Logger;
