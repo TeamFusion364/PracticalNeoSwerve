@@ -1,43 +1,78 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.UsbCamera;
+import frc.robot.Constants;
+
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.swerve.SwerveConfig;
 
-public class PoseEstimator extends SubsystemBase {
-  /** Creates a new PoseEstimator. */
-  public SwerveDrivePoseEstimator sEstimator;
-  public Pose2d visionPose = new Pose2d();
-  
-  public PoseEstimator() {
-    sEstimator = new SwerveDrivePoseEstimator(
-      SwerveConfig.swerveKinematics,
-      new Rotation2d(),
-      new SwerveModulePosition[] {
-        new SwerveModulePosition(),
-        new SwerveModulePosition(),
-        new SwerveModulePosition(),
-        new SwerveModulePosition()
-      },
-      new Pose2d(),
-      Constants.PoseEstimator.stateStdDevs,
-      Constants.PoseEstimator.VisionStdDevs
-    );
+public class PoseEstimator extends SubsystemBase{
+    public SwerveDrivePoseEstimator sEstimator;
+    public TimeInterpolatableBuffer<Double> turretYawBuffer = TimeInterpolatableBuffer.createDoubleBuffer(1.0);
+    public TimeInterpolatableBuffer<Double> gyroYawBuffer = TimeInterpolatableBuffer.createDoubleBuffer(1.0);
+    public Pose2d visionPose = new Pose2d();
 
-  }
+    public PoseEstimator(){
+        sEstimator = new SwerveDrivePoseEstimator(
+            Constants.Swerve.swerveKinematics, 
+            new Rotation2d(), 
+            new SwerveModulePosition[] {
+                new SwerveModulePosition(),
+                new SwerveModulePosition(),
+                new SwerveModulePosition(),
+                new SwerveModulePosition()
+            },
+            new Pose2d(), 
+            Constants.PoseEstimator.stateStdDevs, 
+            Constants.PoseEstimator.visionStdDevs
+        );
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    /** Check if this returns true before using {@link #updateVision()} 
+     * @return If time buffers are !null */
+    public boolean readyToUpdateVision(){
+      return gyroYawBuffer.getSample(0).isPresent();
+    }
+
+    /** Update estimator with Swerve States and Gyro Yaw data.
+     * Needs to be updated every loop. */
+    public void updateSwerve(Rotation2d gyroAngle, SwerveModulePosition[] modulePositions){
+        sEstimator.update(gyroAngle, modulePositions);
+        gyroYawBuffer.addSample(Timer.getFPGATimestamp(), gyroAngle.getRadians());
+    }
+
+    /** Update estimator with vision data. 
+     *  Should only be updated when target is visible.
+     * @param LLlatency seconds */
+    public void updateVision(Pose2d LLpose, double LLlatency){
+        double timeStamp = Timer.getFPGATimestamp() - LLlatency;
+        Rotation2d gyro = new Rotation2d(gyroYawBuffer.getSample(timeStamp).get());
+        sEstimator.addVisionMeasurement(
+            new Pose2d(LLpose.getX(), LLpose.getY(), gyro),
+            timeStamp
+        );
+    }
+
+    public Pose2d getEstimatedPosition(){
+        return sEstimator.getEstimatedPosition();
+    }
+
+    
+    @Override
+    public void periodic(){
+        SmartDashboard.putNumber("robotX", getEstimatedPosition().getX());
+        SmartDashboard.putNumber("robotY", getEstimatedPosition().getY());
+        SmartDashboard.putNumber("robotHeading", getEstimatedPosition().getRotation().getRadians());
+        Logger.recordOutput("EstimatedPose", getEstimatedPosition());
+
+    }
 }
