@@ -38,7 +38,7 @@ public final class HardwareConfigs {
        swerveDriveSparkConfig.idleMode(Constants.Swerve.driveNuetralMode);
 
        //Gear ratio and wrapping config
-       swerveDriveSparkConfig.encoder.positionConversionFactor(Constants.Swerve.driveGearRatio);
+       swerveDriveSparkConfig.encoder.positionConversionFactor(Constants.Swerve.wheelCircumference / Constants.Swerve.driveGearRatio);
        swerveDriveSparkConfig.closedLoop.positionWrappingEnabled(true);
 
        //current limiting

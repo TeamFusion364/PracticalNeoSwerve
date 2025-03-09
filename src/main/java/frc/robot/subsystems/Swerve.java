@@ -60,7 +60,7 @@ public class Swerve extends SubsystemBase {
             this::getPose, // Robot pose supplier
             this::resetOdometry, // Method to reset odometry (will be called if your auto has a starting pose)
             this::getRobotRelativeSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
-            (speeds, feedforwards) -> driveRobotRelative(speeds), // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
+            this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds. Also optionally outputs individual module feedforwards
             new PPHolonomicDriveController( // PPHolonomicController is the built in path following controller for holonomic drive trains
                     Constants.AutoConstants.translationPID, // Translation PID constants
                     Constants.AutoConstants.rotationPID // Rotation PID constants
@@ -176,7 +176,7 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic(){
         swerveOdometry.update(getGyroYaw(), getModulePositions()); 
-        s_PoseEstimator.updateSwerve(getGyroYaw(), getModulePositions());
+        //s_PoseEstimator.updateSwerve(getGyroYaw(), getModulePositions());
         field.setRobotPose(getPose());
 
         SmartDashboard.putNumber("Get Gyro", getGyroYaw().getDegrees());
