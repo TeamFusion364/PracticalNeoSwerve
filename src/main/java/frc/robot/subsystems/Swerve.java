@@ -113,7 +113,7 @@ public class Swerve extends SubsystemBase {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.Swerve.maxSpeed);
         
         for(SwerveMod mod : mSwerveMods){
-            mod.setDesiredState(desiredStates[mod.moduleNumber], false);
+            mod.setDesiredState(desiredStates[mod.moduleNumber], true);
         }
     }    
 
@@ -176,11 +176,12 @@ public class Swerve extends SubsystemBase {
     @Override
     public void periodic(){
         swerveOdometry.update(getGyroYaw(), getModulePositions()); 
-        //s_PoseEstimator.updateSwerve(getGyroYaw(), getModulePositions());
+        s_PoseEstimator.updateSwerve(getGyroYaw(), getModulePositions());
         field.setRobotPose(getPose());
 
         SmartDashboard.putNumber("Get Gyro", getGyroYaw().getDegrees());
         SmartDashboard.putNumber("Get Heading", getHeading().getDegrees());
+
         for(SwerveMod mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCANcoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
